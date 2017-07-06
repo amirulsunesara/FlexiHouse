@@ -1,0 +1,159 @@
+﻿@using FlexiHouseFinal.Models
+@using FlexihouseRoutinesTest
+@model List<Order>
+@{
+    ViewBag.Title = "OrderInstruction";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+      <br /><br />
+<h3 style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif"> Orders </h3>
+<hr>
+
+<div class="col-lg-12">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+           Instructions
+        </div>
+        <div class="panel-body">
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Customer Details</th>
+                        <th>Order Details</th>
+                        <th>Instruction</th>
+                        
+                    </tr>
+                </thead>
+                <tbody id="">
+                    @{ WarehouseDBEntities wde = new WarehouseDBEntities();
+                        
+                     }
+                    @{ int i = 0;
+
+                                    int? currentDispatchid = -2;
+                                    int? prevID = -3;
+                                    try
+                                    {
+                                        foreach (var order in Model)
+                                        {
+                                            currentDispatchid = order.dispatchNo;
+
+                                            Customer customer = wde.Customers.Where(c => c.id == order.customerId).FirstOrDefault();
+                                <tr>
+                                    <td>
+
+
+                                        <label style="font-weight:bold;" class="control-label" for="name">
+                                            Full Name<span class="required"> : </span>
+                                        </label>
+
+                                        <label class="control-label">@customer.fullName</label>
+                                        <br>
+
+
+                                        <label style="font-weight:bold;" class="control-label" for="name">
+                                            Email<span class="required"> : </span>
+                                        </label>
+                                        <label class="control-label">@customer.email</label>
+
+                                        <br>
+
+                                        <label style="font-weight:bold;" class="control-label" for="name">
+                                            Contact No<span class="required"> : </span>
+                                        </label>
+
+                                        <label class="control-label">@customer.contact</label>
+
+
+                                        <br>
+
+                                        <label style="font-weight:bold;" class="control-label" for="name">
+                                            Organization Name<span class="required"> : </span>
+                                        </label>
+
+                                        <label class="control-label">@customer.organizationName</label>
+                                        <br>
+
+                                        <label style="font-weight:bold;" class="control-label" for="name">
+                                            Organization Address<span class="required"> : </span>
+                                        </label>
+                                        <label class="control-label">@customer.organizationAddress</label>
+                                    </td>
+
+
+                                    <td>
+                                     
+                                        
+                                            @{
+                                                List<item_Order> itemOrderList = wde.item_Order.Where(a => a.orderId == order.orderId).ToList();
+
+
+                            }
+                                            @foreach (item_Order itemOrder in itemOrderList)
+                            {
+                                Item item = wde.Items.FirstOrDefault(c => c.id == itemOrder.itemId);
+
+                                                <label class="control-label" style="margin-left:5px;"> @itemOrder.quantity<label class="control-label">x</label> @item.itemName</label>
+                                                <br>
+                                            }
+                                 
+                                       </td>
+                                    @if (prevID != currentDispatchid)
+                                    {
+                                        prevID = currentDispatchid;
+
+                                        i = 1;
+                                        List<Order> od = Model.Where(a => a.dispatchNo == order.dispatchNo).ToList();
+                                        Slotting sl = new Slotting();
+
+                                        <td rowspan="@od.Count" style="vertical-align:middle;">
+
+                                           @{
+
+                                string inst = "";
+
+                            }
+                                        <ul>
+                                            @foreach (var z in od)
+                                            {
+
+                                                List<String> ins = sl.string_to_object(z.instruction).Distinct().ToList();
+                                                inst = "";
+                                                foreach (var kk in ins)
+                                                {
+                                                   
+                                                    <li>@kk.ToString()</li>
+                                                }
+
+                                            }
+                                            </ul>
+
+                                       </td>
+                                     }
+
+
+
+                                </tr>
+
+
+                                                    }
+
+                                              
+
+                                                }
+                                                catch (Exception ex) { }
+
+
+                     }
+                </tbody>
+            </table>
+
+
+        </div>
+        <div class="panel-footer">
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,80 @@
+﻿@model List<FlexiHouseFinal.Models.Consignment>
+@{
+    ViewBag.Title = "Consignments";
+    Layout = "~/Views/Shared/_WorkerLayout.cshtml";
+    bool completedConsignments = false;
+}
+
+
+<br /><br />
+<h3 style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif"> Consignments </h3>
+<hr>
+
+<div class="left_col" role="main">
+    <div class="">
+
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+
+                    <div class="x_content">
+                        <table class="table table-bordered table-hover table-responsive">
+                            <tr>
+                                <th></th>
+                                <th>
+                                    Supplier Name
+                                </th>
+                                <th>
+                                    Total Items
+                                </th>
+                                <th>
+                                    Arrival Date
+                                </th>
+                                <th></th>
+                            </tr>
+
+                            @foreach (var item in Model)
+                            {
+                                if (item.consignmentStatus == "Completed")
+                                {
+                                    completedConsignments = true;
+
+
+                                }
+                                if (item.consignmentStatus != "Completed")
+                                {
+                                <tr>
+                                    <td>
+                                        @if (item.consignmentStatus == "Added")
+                                        {
+                                            <a style="color:red; font-size:medium">New</a>
+                                        }
+                                      
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.supplier)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.totalItems)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.arrivalDate)
+                                    </td>
+                                    <td>
+                                        
+                                        @Html.ActionLink("Consignment Instructions", "ConsignmentDetails", new { id = item.id }, htmlAttributes: new { @class = "btn btn-success" })
+
+                                    </td>
+                                </tr>
+                                }
+                            }
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br><br>

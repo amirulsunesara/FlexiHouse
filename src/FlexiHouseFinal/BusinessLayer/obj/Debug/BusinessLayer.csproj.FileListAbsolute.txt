@@ -1,0 +1,4 @@
+C:\Users\Dell\documents\visual studio 2015\Projects\FlexiHouseFinal\BusinessLayer\bin\Debug\BusinessLayer.dll
+C:\Users\Dell\documents\visual studio 2015\Projects\FlexiHouseFinal\BusinessLayer\bin\Debug\BusinessLayer.pdb
+C:\Users\Dell\documents\visual studio 2015\Projects\FlexiHouseFinal\BusinessLayer\obj\Debug\BusinessLayer.dll
+C:\Users\Dell\documents\visual studio 2015\Projects\FlexiHouseFinal\BusinessLayer\obj\Debug\BusinessLayer.pdb

@@ -1,0 +1,101 @@
+﻿
+@{
+    ViewBag.Title = "PlaceOrderComplete";
+    Layout = "~/Views/Shared/_StepTwo.cshtml";
+}
+
+<br /><br />
+
+<div class="container">
+
+
+    <div class="row bs-wizard" style="border-bottom:0;">
+
+        <div class="col-xs-4 bs-wizard-step complete">
+            <div class="text-center bs-wizard-stepnum">Step 1</div>
+            <div class="progress"><div class="progress-bar"></div></div>
+            <a href="#" class="bs-wizard-dot"></a>
+            <div class="bs-wizard-info text-center">Customer Details</div>
+        </div>
+
+
+
+        <div class="col-xs-4 bs-wizard-step active">
+            <!-- active -->
+            <div class="text-center bs-wizard-stepnum">Step 2</div>
+            <div class="progress"><div class="progress-bar"></div></div>
+            <a href="#" class="bs-wizard-dot"></a>
+            <div class="bs-wizard-info text-center">Order Details</div>
+        </div>
+
+
+        <div class="col-xs-4 bs-wizard-step disabled">
+            <!-- active -->
+            <div class="text-center bs-wizard-stepnum">Step 3</div>
+            <div class="progress"><div class="progress-bar"></div></div>
+            <a href="#" class="bs-wizard-dot"></a>
+            <div class="bs-wizard-info text-center">Review Order</div>
+        </div>
+
+    </div>
+
+
+
+
+
+</div>
+<hr>
+
+<div class="right_col" role="main">
+    <input id="warehouseKey" type="hidden" value="@Session["warehouseKey"].ToString()">
+    <div class="">
+
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+
+                    <div class="x_content">
+                   
+                        <div class="form-group">
+                            <div class="col-md-10">
+                          
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Item Name</th>
+                                            <th>Manufacturer</th>
+                                            <th>Item Code</th>
+                                            <th>Available Quantity</th>
+                                            <th>Choose Quantity</th>
+                                                <th></th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tblItems">
+                                        <tr>
+                                            <td><select style="" class="form-control r1" id="ddItemName1" name="ddItemName"></select></td>
+                                            <td><label id="lblManufacturer1" class="form-control r1"></label></td>
+                                            <td><label id="lblItemCode1" class="form-control r1"></label></td>
+                                            <td><label id="lblAvailableQuantity1" class="form-control r1"></label></td>
+                                            <td><select style="" class="form-control r1" id="ddQuantity1" name="ddQuantity"></select></td>
+                                   
+
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                                <button id="addButton" class="btn btn-default">+ Add More Items</button><input style="visibility:hidden" type="text" id="currentCount" value="2" />
+                                <br><br>
+                                <button type="button" onclick="history.back()" class="btn btn-primary">Go Back</button> <button id="orderComplete" class="btn btn-success">Proceed to Next Step</button>
+                             </div>
+                        </div>
+                        <br>
+                    
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

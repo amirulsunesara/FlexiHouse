@@ -1,0 +1,173 @@
+﻿
+@{
+    ViewBag.Title = "viewWarehouse";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+
+}
+
+<div class="row">
+    <div class="modal fade" id="myModal3" style="width:300px; height:1200px;">
+
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#2A3F54;">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="float:left;">
+                        ×
+                    </button>
+               <h4 class="modal-title" id="myModalLabel" style="">
+                        Item Details
+                    </h4>
+                </div>
+                <div class="modal-body">
+                
+                    <div id="detailsFade">
+                        <div style="margin-left:30px;" id="imgDiv"></div>
+                        <br>
+                        <label style="font-weight:bold;">Manufacturer: </label>&nbsp;&nbsp;<label id="lblManufacturer"></label><br>
+                        <label style="font-weight:bold;">Item Code: </label>&nbsp;&nbsp;<label id="lblItemCode"></label><br>
+                        <label style="font-weight:bold;">Country: </label>&nbsp;&nbsp;<label id="lblCountry"></label><br>
+                        <label style="font-weight:bold;">Dimensions: </label>&nbsp;&nbsp;<label id="lblDimensions"></label>&nbsp;cm<br>
+                        <label style="font-weight:bold;">Weight: </label>&nbsp;&nbsp;<label id="lblWeight"></label>&nbsp;Kg<br>
+                    </div>
+                    
+                    </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal2">
+
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#2A3F54;">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        ×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        Shelf: <label id="theShelfName"></label>
+                    </h4>
+                </div>
+                <div class="modal-body">
+<div style="overflow:auto; overflow-y:auto; overflow-x:auto; width:700px; display:inline-block; height:600px;">
+                    <div>
+                    <table id="drawTable">
+
+                    
+
+                    </table>
+             <br>
+                   <label id="sectionNo"> Section No:</label>
+                    <div id="container">
+                  
+                
+                      <div class="pagination" id="shelvePagination">
+                         
+                          
+                                                                                                                                                                                                                                                                                                        
+        
+                          
+                                                                                                                                                                                                                  
+                        </div>
+                         </div>
+                 </div>
+</div>
+                    <div style="float:right; display:inline-block; border:1px solid grey;  width:250px; height:200px; margin-top:5px; margin-right:10px;">
+                        <div style="float:right; display:inline-block;  width:100px; height:100px;">
+<label style="font-weight:bold; color:black; float:right; margin-top:4px; margin-right:3px;">Slot Status</label>
+<ul>
+       Filled  
+    <li style="width:50px; height:15px; background-color:#AA3939; list-style:none; "></li>
+    Empty
+    <li style="width:50px; height:15px; background-color:#277554; list-style:none;"></li>
+</ul>
+
+                        </div>
+                        <div style="border:1px solid white; width:175px; height:500px;">
+                            <div style="margin-left:3px; margin-top:4px;">
+                                <label style="font-weight:bold; color:black;">Slot No:</label>&nbsp;&nbsp;&nbsp;<label id="slotNo"></label><br>
+                                <label style="font-weight:bold; color:black;">Item Name:</label>&nbsp;&nbsp;&nbsp;<label id="itemName"></label><br>
+                              &nbsp;&nbsp;&nbsp;<label id="itemExpiry"></label>
+                              &nbsp;<label id="manufacturer"></label>
+                                <label id="itemId" style="visibility:hidden"></label>
+                            </div>
+
+                            
+                        </div>
+                    </div>
+                 
+
+            </div>
+        </div>
+    </div>
+        </div>
+    <!-- /.col-lg-8 -->
+    <div class="col-lg-7">
+        <div class="panel panel-default" style="position:fixed;">
+            <div class="panel-heading">
+                <i class="fa fa-bell fa-fw"></i> Model
+
+
+                <div style="float:right;  margin-right:10px; ">
+
+
+              
+                </div>
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+
+                <div id="droppable" style="border:1px solid black; width:17cm;  height:16cm;" class="list-group">
+                    @if (ViewBag.HtmlStr == null)
+                    {
+
+               
+
+
+
+                        //  @Scripts.Render("~/bundles/script")
+                    }
+                    else
+                    {
+                        @Html.Raw(ViewBag.HtmlStr)
+
+
+
+                    }
+                </div>
+
+
+            </div>
+        </div>
+        <!-- /.panel-body -->
+    </div>
+
+
+    <div class="col-lg-3">
+        <div class="panel panel-default"  style="position:fixed;">
+            <div class="panel-heading">
+                <i class="fa fa-bar-chart-o fa-fw"></i> Shelf Items
+                <div style="float:right;  margin-right:10px; ">
+
+
+
+                   
+                </div>
+
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div style="height:16.5cm; overflow:auto;">
+             <label style="font:300">Shelve Id: </label>  <label id="shelveID" style="font:700"></label>
+               <table id="mytable" class="table table-bordered" style="width:400px;">
+                  
+               </table>
+                    </div>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+        <!-- /.panel -->
+        <!-- /.panel -->
+    </div>
+</div>
+
+ 

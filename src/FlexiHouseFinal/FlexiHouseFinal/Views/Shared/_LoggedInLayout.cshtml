@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html>
+<head style="position:fixed;">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlexiHouse</title>
+    @Styles.Render("~/ContentZ/css")
+
+
+     
+</head>
+
+<body>
+
+
+
+    <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+        <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+            <div class="mdl-layout__header-row">
+                <span class="mdl-layout-title">Warehouse Design</span>
+                <div class="mdl-layout-spacer"></div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+
+
+
+
+                    <div class="mdl-textfield__expandable-holder">
+                        <input class="mdl-textfield__input" type="text" id="search">
+                        <label class="mdl-textfield__label" for="search">Enter your query...</label>
+                    </div>
+                </div>
+
+
+                <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
+                   <span class="glyphicon glyphicon-user"></span>
+                </button>
+                <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
+                    <li class="mdl-menu__item"><span class="glyphicon glyphicon-off"></span>&nbsp;   @Html.ActionLink("Sign out", "LogOff", "Account") </li>
+
+
+                </ul>
+            </div>
+        </header>
+        <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+         <div>
+
+             <center><img style="height:60%; width:80%; margin-top:20px;" src="~/images/logo.png"/></center>
+             <center><label style="font-family:Arial;font-size:medium; margin-top:2px;">@Session["Username"].ToString()</label></center>
+
+         </div>
+            <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
+               
+                <a class="mdl-navigation__link" href="/Account/LoggedIn"><span style="margin-bottom:6px;" class="glyphicon glyphicon-pencil"></span>&nbsp; Design Warehouse</a>
+                <a class="mdl-navigation__link" href="/Home/viewWarehouse"><span style="margin-bottom:6px;" class="glyphicon glyphicon-home"></span>&nbsp; View Warehouse</a>
+                <a class="mdl-navigation__link" id="demo-menu-lower-left" href="#"><span style="margin-bottom:6px;" class="glyphicon glyphicon-credit-card"></span>&nbsp; Consignment</a>
+                <!-- Left aligned menu below button -->
+              
+                  <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
+                        for="demo-menu-lower-left"  style="width:223px; background-color:white">
+                        <a class="mdl-menu__item" href="/Items/Index" style="width:223px;">View Items</a>
+                      <a class="mdl-menu__item" href="/Consignments/Create" style="width:223px; ">Add Consigment</a>
+                      <a class="mdl-menu__item" href="/Consignments/Index" style="width:223px; ">View Consigment</a>
+
+                       
+                  </ul>
+                
+
+
+
+
+            </nav>
+        </div>
+        <main class="mdl-layout__content mdl-color--grey-100">
+            <div class="mdl-grid demo-content">
+
+                @RenderBody()
+       
+                <!-- /.col-lg-4 -->
+            </div>
+
+        </main>
+    </div>
+
+ 
+    @Scripts.Render("~/bundles/script")
+    @Scripts.Render("~/bundles/zoom")
+
+</body>
+
+
+
+
+
+
+
+
+
+</html>

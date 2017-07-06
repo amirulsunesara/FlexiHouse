@@ -1,0 +1,326 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WarehouseDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Consignment">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="warehouseId" Type="Int32" />
+    <Property Name="supplier" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="totalItems" Type="Int32" />
+    <Property Name="arrivalDate" Type="DateTime" Precision="3" />
+    <Property Name="consignmentName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="instruction" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="consignmentStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="shelfInserted" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Item_Consignment" Relationship="Self.FK_consignment" FromRole="Consignment" ToRole="Item_Consignment" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="fullName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="organizationName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="selectedWarehouse" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="organizationAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="contact" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="userName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Item">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="itemName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Manufacturer" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Country" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="itemCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Category" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="itemDetails" Type="Int32" />
+    <NavigationProperty Name="item_Order" Relationship="Self.FK_itemId" FromRole="Item" ToRole="item_Order" />
+    <NavigationProperty Name="Item_Consignment" Relationship="Self.FK_items" FromRole="Item" ToRole="Item_Consignment" />
+    <NavigationProperty Name="Item_Warehouse" Relationship="Self.FK_itemsId" FromRole="Item" ToRole="Item_Warehouse" />
+    <NavigationProperty Name="itemDetail" Relationship="Self.FKK_items" FromRole="Item" ToRole="itemDetails" />
+  </EntityType>
+  <EntityType Name="Item_Consignment">
+    <Key>
+      <PropertyRef Name="itemId" />
+      <PropertyRef Name="consignmentId" />
+    </Key>
+    <Property Name="itemId" Type="Int32" Nullable="false" />
+    <Property Name="consignmentId" Type="Int32" Nullable="false" />
+    <Property Name="quantity" Type="Int32" />
+    <Property Name="expiry" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Consignment" Relationship="Self.FK_consignment" FromRole="Item_Consignment" ToRole="Consignment" />
+    <NavigationProperty Name="Item" Relationship="Self.FK_items" FromRole="Item_Consignment" ToRole="Item" />
+  </EntityType>
+  <EntityType Name="item_Order">
+    <Key>
+      <PropertyRef Name="itemId" />
+      <PropertyRef Name="orderId" />
+    </Key>
+    <Property Name="itemId" Type="Int32" Nullable="false" />
+    <Property Name="orderId" Type="Int32" Nullable="false" />
+    <Property Name="quantity" Type="Int32" />
+    <NavigationProperty Name="Item" Relationship="Self.FK_itemId" FromRole="item_Order" ToRole="Item" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_orderId" FromRole="item_Order" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="Item_Warehouse">
+    <Key>
+      <PropertyRef Name="itemId" />
+      <PropertyRef Name="warehouseId" />
+    </Key>
+    <Property Name="itemId" Type="Int32" Nullable="false" />
+    <Property Name="warehouseId" Type="Int32" Nullable="false" />
+    <Property Name="quantity" Type="Int32" />
+    <Property Name="orders" Type="Int32" />
+    <NavigationProperty Name="Item" Relationship="Self.FK_itemsId" FromRole="Item_Warehouse" ToRole="Item" />
+    <NavigationProperty Name="Warehouse" Relationship="Self.FK_warehouseId" FromRole="Item_Warehouse" ToRole="Warehouse" />
+  </EntityType>
+  <EntityType Name="itemDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="dimensions" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="weight" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="picture" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Items" Relationship="Self.FKK_items" FromRole="itemDetails" ToRole="Item" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="orderId" />
+    </Key>
+    <Property Name="orderId" Type="Int32" Nullable="false" />
+    <Property Name="customerId" Type="Int32" />
+    <Property Name="orderDate" Type="DateTime" Precision="0" />
+    <Property Name="orderStatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="warehouseId" Type="Int32" />
+    <Property Name="totalOrderQuanitity" Type="Int32" />
+    <Property Name="instruction" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="dispatchNo" Type="Int32" />
+    <Property Name="shelfRetrieval" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="item_Order" Relationship="Self.FK_orderId" FromRole="Order" ToRole="item_Order" />
+  </EntityType>
+  <EntityType Name="Shelf">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="shelfName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="warehouse_id" Type="Int32" />
+    <Property Name="zone" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="shelfItems" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="slotsRemaining" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Transaction">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="itemId" Type="Int32" Nullable="false" />
+    <Property Name="warehouseId" Type="Int32" />
+    <Property Name="quantity" Type="Int32" />
+    <Property Name="shelfId" Type="Int32" />
+    <Property Name="slotNumber" Type="Int32" />
+    <Property Name="transactionDate" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="UserAccount">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Role" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Contact" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Registered" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ConfirmPassword" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="workerId" Type="Int32" />
+    <NavigationProperty Name="Worker" Relationship="Self.FK_workerId" FromRole="UserAccounts" ToRole="Worker" />
+  </EntityType>
+  <EntityType Name="Warehouse">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="warehouseHTML" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="actualWarehouseWidth" Type="Double" />
+    <Property Name="actualWarehouseLength" Type="Double" />
+    <Property Name="scaledWarehouseWidth" Type="Double" />
+    <Property Name="scaledWarehouseLength" Type="Double" />
+    <Property Name="actualShelfHeight" Type="Double" />
+    <Property Name="actualShelfWidth" Type="Double" />
+    <Property Name="actualShelfLength" Type="Int32" />
+    <Property Name="scaledShelfWidth" Type="Double" />
+    <Property Name="scaledShelfLength" Type="Double" />
+    <Property Name="shelves" Type="Int32" />
+    <Property Name="shelfRows" Type="Int32" />
+    <Property Name="shelfSlots" Type="Int32" />
+    <Property Name="managerId" Type="Int32" />
+    <Property Name="sections" Type="Int32" />
+    <Property Name="warehouseName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="warehouseAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="warehouseLogo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Item_Warehouse" Relationship="Self.FK_warehouseId" FromRole="Warehouse" ToRole="Item_Warehouse" />
+  </EntityType>
+  <EntityType Name="Worker">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="warehouseId" Type="Int32" />
+    <Property Name="assignedShelfs" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="workerLogs" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="UserAccounts" Relationship="Self.FK_workerId" FromRole="Worker" ToRole="UserAccounts" />
+  </EntityType>
+  <Association Name="FK_consignment">
+    <End Role="Consignment" Type="Self.Consignment" Multiplicity="1" />
+    <End Role="Item_Consignment" Type="Self.Item_Consignment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Consignment">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Item_Consignment">
+        <PropertyRef Name="consignmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_itemId">
+    <End Role="Item" Type="Self.Item" Multiplicity="1" />
+    <End Role="item_Order" Type="Self.item_Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="item_Order">
+        <PropertyRef Name="itemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_items">
+    <End Role="Item" Type="Self.Item" Multiplicity="1" />
+    <End Role="Item_Consignment" Type="Self.Item_Consignment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Item_Consignment">
+        <PropertyRef Name="itemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_itemsId">
+    <End Role="Item" Type="Self.Item" Multiplicity="1" />
+    <End Role="Item_Warehouse" Type="Self.Item_Warehouse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Item_Warehouse">
+        <PropertyRef Name="itemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FKK_items">
+    <End Role="itemDetails" Type="Self.itemDetail" Multiplicity="0..1" />
+    <End Role="Item" Type="Self.Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="itemDetails">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Item">
+        <PropertyRef Name="itemDetails" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_orderId">
+    <End Role="Order" Type="Self.Order" Multiplicity="1" />
+    <End Role="item_Order" Type="Self.item_Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="orderId" />
+      </Principal>
+      <Dependent Role="item_Order">
+        <PropertyRef Name="orderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_warehouseId">
+    <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="1" />
+    <End Role="Item_Warehouse" Type="Self.Item_Warehouse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Warehouse">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Item_Warehouse">
+        <PropertyRef Name="warehouseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_workerId">
+    <End Role="Worker" Type="Self.Worker" Multiplicity="0..1" />
+    <End Role="UserAccounts" Type="Self.UserAccount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Worker">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserAccounts">
+        <PropertyRef Name="workerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="WarehouseDBEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Consignments" EntityType="Self.Consignment" />
+    <EntitySet Name="Customers" EntityType="Self.Customer" />
+    <EntitySet Name="Items" EntityType="Self.Item" />
+    <EntitySet Name="Item_Consignment" EntityType="Self.Item_Consignment" />
+    <EntitySet Name="item_Order" EntityType="Self.item_Order" />
+    <EntitySet Name="Item_Warehouse" EntityType="Self.Item_Warehouse" />
+    <EntitySet Name="itemDetails" EntityType="Self.itemDetail" />
+    <EntitySet Name="Orders" EntityType="Self.Order" />
+    <EntitySet Name="Shelves" EntityType="Self.Shelf" />
+    <EntitySet Name="Transactions" EntityType="Self.Transaction" />
+    <EntitySet Name="UserAccounts" EntityType="Self.UserAccount" />
+    <EntitySet Name="Warehouses" EntityType="Self.Warehouse" />
+    <EntitySet Name="Workers" EntityType="Self.Worker" />
+    <AssociationSet Name="FK_consignment" Association="Self.FK_consignment">
+      <End Role="Consignment" EntitySet="Consignments" />
+      <End Role="Item_Consignment" EntitySet="Item_Consignment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_itemId" Association="Self.FK_itemId">
+      <End Role="Item" EntitySet="Items" />
+      <End Role="item_Order" EntitySet="item_Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_items" Association="Self.FK_items">
+      <End Role="Item" EntitySet="Items" />
+      <End Role="Item_Consignment" EntitySet="Item_Consignment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_itemsId" Association="Self.FK_itemsId">
+      <End Role="Item" EntitySet="Items" />
+      <End Role="Item_Warehouse" EntitySet="Item_Warehouse" />
+    </AssociationSet>
+    <AssociationSet Name="FKK_items" Association="Self.FKK_items">
+      <End Role="itemDetails" EntitySet="itemDetails" />
+      <End Role="Item" EntitySet="Items" />
+    </AssociationSet>
+    <AssociationSet Name="FK_orderId" Association="Self.FK_orderId">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="item_Order" EntitySet="item_Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_warehouseId" Association="Self.FK_warehouseId">
+      <End Role="Warehouse" EntitySet="Warehouses" />
+      <End Role="Item_Warehouse" EntitySet="Item_Warehouse" />
+    </AssociationSet>
+    <AssociationSet Name="FK_workerId" Association="Self.FK_workerId">
+      <End Role="Worker" EntitySet="Workers" />
+      <End Role="UserAccounts" EntitySet="UserAccounts" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

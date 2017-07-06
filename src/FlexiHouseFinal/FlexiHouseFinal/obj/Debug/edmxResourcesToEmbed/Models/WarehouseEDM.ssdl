@@ -1,0 +1,310 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WarehouseDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Consignment">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="warehouseId" Type="int" />
+    <Property Name="supplier" Type="varchar(max)" />
+    <Property Name="totalItems" Type="int" />
+    <Property Name="arrivalDate" Type="datetime" />
+    <Property Name="consignmentName" Type="varchar(max)" />
+    <Property Name="instruction" Type="varchar(max)" />
+    <Property Name="consignmentStatus" Type="varchar" MaxLength="50" />
+    <Property Name="shelfInserted" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="fullName" Type="varchar" MaxLength="50" />
+    <Property Name="organizationName" Type="varchar" MaxLength="50" />
+    <Property Name="selectedWarehouse" Type="varchar(max)" />
+    <Property Name="organizationAddress" Type="varchar" MaxLength="50" />
+    <Property Name="contact" Type="varchar" MaxLength="50" />
+    <Property Name="userName" Type="varchar" MaxLength="50" />
+    <Property Name="password" Type="varchar" MaxLength="50" />
+    <Property Name="email" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Item">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="itemName" Type="varchar(max)" />
+    <Property Name="Manufacturer" Type="varchar(max)" />
+    <Property Name="Country" Type="varchar(max)" />
+    <Property Name="itemCode" Type="varchar(max)" />
+    <Property Name="Category" Type="varchar(max)" />
+    <Property Name="itemDetails" Type="int" />
+  </EntityType>
+  <EntityType Name="Item_Consignment">
+    <Key>
+      <PropertyRef Name="itemId" />
+      <PropertyRef Name="consignmentId" />
+    </Key>
+    <Property Name="itemId" Type="int" Nullable="false" />
+    <Property Name="consignmentId" Type="int" Nullable="false" />
+    <Property Name="quantity" Type="int" />
+    <Property Name="expiry" Type="date" />
+  </EntityType>
+  <EntityType Name="item_Order">
+    <Key>
+      <PropertyRef Name="itemId" />
+      <PropertyRef Name="orderId" />
+    </Key>
+    <Property Name="itemId" Type="int" Nullable="false" />
+    <Property Name="orderId" Type="int" Nullable="false" />
+    <Property Name="quantity" Type="int" />
+  </EntityType>
+  <EntityType Name="Item_Warehouse">
+    <Key>
+      <PropertyRef Name="itemId" />
+      <PropertyRef Name="warehouseId" />
+    </Key>
+    <Property Name="itemId" Type="int" Nullable="false" />
+    <Property Name="warehouseId" Type="int" Nullable="false" />
+    <Property Name="quantity" Type="int" />
+    <Property Name="orders" Type="int" />
+  </EntityType>
+  <EntityType Name="itemDetails">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="dimensions" Type="varchar(max)" />
+    <Property Name="weight" Type="varchar(max)" />
+    <Property Name="picture" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="orderId" />
+    </Key>
+    <Property Name="orderId" Type="int" Nullable="false" />
+    <Property Name="customerId" Type="int" />
+    <Property Name="orderDate" Type="date" />
+    <Property Name="orderStatus" Type="varchar(max)" />
+    <Property Name="warehouseId" Type="int" />
+    <Property Name="totalOrderQuanitity" Type="int" />
+    <Property Name="instruction" Type="varchar(max)" />
+    <Property Name="dispatchNo" Type="int" />
+    <Property Name="shelfRetrieval" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Shelf">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="shelfName" Type="varchar(max)" />
+    <Property Name="warehouse_id" Type="int" />
+    <Property Name="zone" Type="varchar(max)" />
+    <Property Name="shelfItems" Type="varchar(max)" />
+    <Property Name="slotsRemaining" Type="int" />
+  </EntityType>
+  <EntityType Name="Transaction">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="itemId" Type="int" Nullable="false" />
+    <Property Name="warehouseId" Type="int" />
+    <Property Name="quantity" Type="int" />
+    <Property Name="shelfId" Type="int" />
+    <Property Name="slotNumber" Type="int" />
+    <Property Name="transactionDate" Type="date" />
+  </EntityType>
+  <EntityType Name="UserAccounts">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Role" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Contact" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Registered" Type="nvarchar(max)" />
+    <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="ConfirmPassword" Type="nvarchar(max)" />
+    <Property Name="workerId" Type="int" />
+  </EntityType>
+  <EntityType Name="Warehouse">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="warehouseHTML" Type="varbinary(max)" />
+    <Property Name="actualWarehouseWidth" Type="float" />
+    <Property Name="actualWarehouseLength" Type="float" />
+    <Property Name="scaledWarehouseWidth" Type="float" />
+    <Property Name="scaledWarehouseLength" Type="float" />
+    <Property Name="actualShelfHeight" Type="float" />
+    <Property Name="actualShelfWidth" Type="float" />
+    <Property Name="actualShelfLength" Type="int" />
+    <Property Name="scaledShelfWidth" Type="float" />
+    <Property Name="scaledShelfLength" Type="float" />
+    <Property Name="shelves" Type="int" />
+    <Property Name="shelfRows" Type="int" />
+    <Property Name="shelfSlots" Type="int" />
+    <Property Name="managerId" Type="int" />
+    <Property Name="sections" Type="int" />
+    <Property Name="warehouseName" Type="varchar(max)" />
+    <Property Name="warehouseAddress" Type="varchar(max)" />
+    <Property Name="warehouseLogo" Type="varchar(max)" />
+    <Property Name="country" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Worker">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="warehouseId" Type="int" />
+    <Property Name="assignedShelfs" Type="varchar(max)" />
+    <Property Name="workerLogs" Type="varchar(max)" />
+  </EntityType>
+  <Association Name="FK_consignment">
+    <End Role="Consignment" Type="Self.Consignment" Multiplicity="1" />
+    <End Role="Item_Consignment" Type="Self.Item_Consignment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Consignment">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Item_Consignment">
+        <PropertyRef Name="consignmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_itemId">
+    <End Role="Item" Type="Self.Item" Multiplicity="1" />
+    <End Role="item_Order" Type="Self.item_Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="item_Order">
+        <PropertyRef Name="itemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_items">
+    <End Role="Item" Type="Self.Item" Multiplicity="1" />
+    <End Role="Item_Consignment" Type="Self.Item_Consignment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Item_Consignment">
+        <PropertyRef Name="itemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_itemsId">
+    <End Role="Item" Type="Self.Item" Multiplicity="1" />
+    <End Role="Item_Warehouse" Type="Self.Item_Warehouse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Item_Warehouse">
+        <PropertyRef Name="itemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_orderId">
+    <End Role="Order" Type="Self.Order" Multiplicity="1" />
+    <End Role="item_Order" Type="Self.item_Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="orderId" />
+      </Principal>
+      <Dependent Role="item_Order">
+        <PropertyRef Name="orderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_warehouseId">
+    <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="1" />
+    <End Role="Item_Warehouse" Type="Self.Item_Warehouse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Warehouse">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Item_Warehouse">
+        <PropertyRef Name="warehouseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_workerId">
+    <End Role="Worker" Type="Self.Worker" Multiplicity="0..1" />
+    <End Role="UserAccounts" Type="Self.UserAccounts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Worker">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserAccounts">
+        <PropertyRef Name="workerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FKK_items">
+    <End Role="itemDetails" Type="Self.itemDetails" Multiplicity="0..1" />
+    <End Role="Item" Type="Self.Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="itemDetails">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Item">
+        <PropertyRef Name="itemDetails" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="WarehouseDBModelStoreContainer">
+    <EntitySet Name="Consignment" EntityType="Self.Consignment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Item_Consignment" EntityType="Self.Item_Consignment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="item_Order" EntityType="Self.item_Order" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Item_Warehouse" EntityType="Self.Item_Warehouse" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="itemDetails" EntityType="Self.itemDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Shelf" EntityType="Self.Shelf" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Transaction" EntityType="Self.Transaction" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserAccounts" EntityType="Self.UserAccounts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Warehouse" EntityType="Self.Warehouse" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Worker" EntityType="Self.Worker" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_consignment" Association="Self.FK_consignment">
+      <End Role="Consignment" EntitySet="Consignment" />
+      <End Role="Item_Consignment" EntitySet="Item_Consignment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_itemId" Association="Self.FK_itemId">
+      <End Role="Item" EntitySet="Item" />
+      <End Role="item_Order" EntitySet="item_Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_items" Association="Self.FK_items">
+      <End Role="Item" EntitySet="Item" />
+      <End Role="Item_Consignment" EntitySet="Item_Consignment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_itemsId" Association="Self.FK_itemsId">
+      <End Role="Item" EntitySet="Item" />
+      <End Role="Item_Warehouse" EntitySet="Item_Warehouse" />
+    </AssociationSet>
+    <AssociationSet Name="FK_orderId" Association="Self.FK_orderId">
+      <End Role="Order" EntitySet="Order" />
+      <End Role="item_Order" EntitySet="item_Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_warehouseId" Association="Self.FK_warehouseId">
+      <End Role="Warehouse" EntitySet="Warehouse" />
+      <End Role="Item_Warehouse" EntitySet="Item_Warehouse" />
+    </AssociationSet>
+    <AssociationSet Name="FK_workerId" Association="Self.FK_workerId">
+      <End Role="Worker" EntitySet="Worker" />
+      <End Role="UserAccounts" EntitySet="UserAccounts" />
+    </AssociationSet>
+    <AssociationSet Name="FKK_items" Association="Self.FKK_items">
+      <End Role="itemDetails" EntitySet="itemDetails" />
+      <End Role="Item" EntitySet="Item" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

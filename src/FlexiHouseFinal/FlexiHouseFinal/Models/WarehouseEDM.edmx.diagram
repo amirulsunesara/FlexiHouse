@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="836292715e2f44d0b64a9f5188b55c2e" Name="Diagram1">
+        <EntityTypeShape EntityType="WarehouseDBModel.Consignment" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WarehouseDBModel.Customer" Width="1.5" PointX="7.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WarehouseDBModel.Item" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WarehouseDBModel.Item_Consignment" Width="1.5" PointX="5.25" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WarehouseDBModel.item_Order" Width="1.5" PointX="5.25" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WarehouseDBModel.Item_Warehouse" Width="1.5" PointX="5.25" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WarehouseDBModel.itemDetail" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WarehouseDBModel.Order" Width="1.5" PointX="3" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WarehouseDBModel.Shelf" Width="1.5" PointX="9.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WarehouseDBModel.Transaction" Width="1.5" PointX="7.75" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WarehouseDBModel.UserAccount" Width="1.5" PointX="10" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WarehouseDBModel.Warehouse" Width="1.5" PointX="3" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WarehouseDBModel.Worker" Width="1.5" PointX="7.75" PointY="2.625" IsExpanded="true" />
+        <AssociationConnector Association="WarehouseDBModel.FK_consignment" ManuallyRouted="false" />
+        <AssociationConnector Association="WarehouseDBModel.FK_itemId" ManuallyRouted="false" />
+        <AssociationConnector Association="WarehouseDBModel.FK_items" ManuallyRouted="false" />
+        <AssociationConnector Association="WarehouseDBModel.FK_itemsId" ManuallyRouted="false" />
+        <AssociationConnector Association="WarehouseDBModel.FKK_items" ManuallyRouted="false" />
+        <AssociationConnector Association="WarehouseDBModel.FK_orderId" ManuallyRouted="false" />
+        <AssociationConnector Association="WarehouseDBModel.FK_warehouseId" ManuallyRouted="false" />
+        <AssociationConnector Association="WarehouseDBModel.FK_workerId" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

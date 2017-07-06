@@ -1,0 +1,51 @@
+﻿@model FlexiHouseFinal.Models.Item_Consignment
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Item_Consignment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.quantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.expiry)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.expiry)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Consignment.supplier)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Consignment.supplier)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Item.itemName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Item.itemName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

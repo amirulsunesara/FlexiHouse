@@ -1,0 +1,27 @@
+﻿
+@model FlexiHouseFinal.Models.Consignment
+
+
+@using FlexiHouseFinal.Models
+
+@{ WarehouseDBEntities wde = new WarehouseDBEntities(); }
+@{
+   
+    DateTime myDate = DateTime.Parse(@Model.arrivalDate.ToString()).Date;
+
+    <li>
+        <a href="/Worker/ConsignmentDetails/@Model.id">
+
+            <span>
+                <span>&nbsp;&nbsp;</span>
+                <span class="time">@myDate.ToShortDateString()</span>
+            </span>
+            <span class="message">
+                Recieved Consignment from @Model.supplier
+            </span>
+        </a>
+    </li>
+
+
+
+}

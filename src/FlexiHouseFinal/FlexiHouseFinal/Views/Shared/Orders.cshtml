@@ -1,0 +1,87 @@
+﻿@model FlexiHouseFinal.Models.Order
+@using FlexiHouseFinal.Models
+
+@{ WarehouseDBEntities wde = new WarehouseDBEntities(); }
+@{
+    Customer customer = wde.Customers.Where(c => c.id == Model.customerId).FirstOrDefault();
+    DateTime myDate = DateTime.Parse(@Model.orderDate.ToString()).Date;
+    string ORDERID = "order" + Model.orderId.ToString();
+    string ordernamee = "ordername";
+    if (Model.orderStatus == "Canceled" || Model.orderStatus == "Dispatched")
+    {
+        ordernamee = "zzzzzzzzz";
+    }
+     <h3 id="@ORDERID" class="@ordernamee">@customer.organizationName (@myDate.Date.ToShortDateString()) @if(Model.orderStatus=="Unseen") {<a style="float:right; color:red;">New</a>}</h3>
+                        <div>
+                            <p>
+                                <div style="float:left; display:inline-block; border:1px solid grey;  width:600px; height:150px; margin-top:5px; margin-right:10px;">
+                                    <div style="float:right; display:inline-block;  width:300px; height:150px;">
+                                        <center>  <u><h2>Order Details </h2></u></center>
+
+                                        @{List<item_Order> itemOrderList = wde.item_Order.Where(a => a.orderId == Model.orderId).ToList(); }
+                                        @foreach (item_Order itemOrder in itemOrderList)
+                                        {
+                                            Item item = wde.Items.FirstOrDefault(c => c.id == itemOrder.itemId);
+
+                                            <label class="control-label" style="margin-left:5px;"> @itemOrder.quantity<label class="control-label">x</label> @item.itemName</label>
+                                            <br>
+                                        }
+                                    </div>
+                                    <div style="border:1px solid grey; width:300px; height:150px;">
+                                        <div style="margin-left:3px; margin-top:4px;">
+                                            <center>  <u><h2>Customer Details</h2></u></center>
+                                            <label style="font-weight:bold;" class="control-label" for="name">
+                                                Full Name<span class="required"> : </span>
+                                            </label>
+
+                                            <label class="control-label">@customer.fullName</label>
+                                            <br>
+
+
+                                            <label style="font-weight:bold;" class="control-label" for="name">
+                                                Email<span class="required"> : </span>
+                                            </label>
+                                            <label class="control-label">@customer.email</label>
+
+                                            <br>
+
+                                            <label style="font-weight:bold;" class="control-label" for="name">
+                                                Contact No<span class="required"> : </span>
+                                            </label>
+
+                                            <label class="control-label">@customer.contact</label>
+
+
+                                            <br>
+
+                                            <label style="font-weight:bold;" class="control-label" for="name">
+                                                Organization Name<span class="required"> : </span>
+                                            </label>
+
+                                            <label class="control-label">@customer.organizationName</label>
+                                            <br>
+
+                                            <label style="font-weight:bold;" class="control-label" for="name">
+                                                Organization Address<span class="required"> : </span>
+                                            </label>
+                                            <label class="control-label">@customer.organizationAddress</label>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                @{ 
+                                    string sendorderid = "sendorder" + Model.orderId.ToString();
+
+                                 }
+           @if(Model.orderStatus =="Seen" || Model.orderStatus=="Unseen") {<button id="@sendorderid"  style="float:right;" class="btn btn btn-danger cancelorder">Cancel</button>
+
+        <button id="@Model.orderId" style="float:right" class="btn btn-success dispatchOrders">Dispatch</button>
+           }<br>
+
+
+                            </p>
+                        </div>
+
+
+                                            }

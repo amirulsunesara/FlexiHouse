@@ -1,0 +1,26 @@
+﻿@model FlexiHouseFinal.Models.Order
+
+
+@using FlexiHouseFinal.Models
+
+@{ WarehouseDBEntities wde = new WarehouseDBEntities(); }
+@{
+    Customer customer = wde.Customers.Where(c => c.id == Model.customerId).FirstOrDefault();
+    DateTime myDate = DateTime.Parse(@Model.orderDate.ToString()).Date;
+  
+      <li>
+        <a href="/Order/GetOrders">
+
+            <span>
+                <span>@customer.organizationName</span>
+                <span class="time">@myDate.ToShortDateString()</span>
+            </span>
+            <span class="message">
+                Recieved Order From @customer.fullName
+            </span>
+        </a>
+    </li>
+
+
+
+}

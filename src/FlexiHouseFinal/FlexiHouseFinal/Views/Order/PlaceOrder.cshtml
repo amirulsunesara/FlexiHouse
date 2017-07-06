@@ -1,0 +1,147 @@
+﻿@{
+    ViewBag.Title = "Place Order";
+    Layout = "~/Views/Shared/_StepTwo.cshtml";
+}
+
+<br /><br />
+
+<div class="container">
+
+
+    <div class="row bs-wizard" style="border-bottom:0;">
+     
+            <div class="col-xs-4 bs-wizard-step active">
+                <div class="text-center bs-wizard-stepnum">Step 1</div>
+                <div class="progress"><div class="progress-bar"></div></div>
+                <a href="#" class="bs-wizard-dot"></a>
+                <div class="bs-wizard-info text-center">Customer Details</div>
+            </div>
+
+
+
+            <div class="col-xs-4 bs-wizard-step disabled">
+                <!-- active -->
+                <div class="text-center bs-wizard-stepnum">Step 2</div>
+                <div class="progress"><div class="progress-bar"></div></div>
+                <a href="#" class="bs-wizard-dot"></a>
+                <div class="bs-wizard-info text-center">Order Details</div>
+            </div>
+
+        <div class="col-xs-4 bs-wizard-step disabled">
+            <!-- active -->
+            <div class="text-center bs-wizard-stepnum">Step 3</div>
+            <div class="progress"><div class="progress-bar"></div></div>
+            <a href="#" class="bs-wizard-dot"></a>
+            <div class="bs-wizard-info text-center">Review Order</div>
+        </div>
+        
+    </div>
+
+
+
+
+
+</div>
+
+
+
+
+
+<hr>
+<div class="right_col" role="main">
+    <div class="">
+
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+
+                    <div class="x_content">
+                        <form class="form-horizontal form-label-left" method="post" enctype="multipart/form-data" action="/Order/PlaceOrderRegister">
+
+                            <br>
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
+                                    Full Name <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <label name="fullname" class="control-label"></label>
+                                    <input type="text" id="fullname" pattern="([a-zA-Z]+[ ][a-zA-Z]+)|([a-zA-Z]+[ ][a-zA-Z]+[ ][a-zA-Z]+)" placeholder="Eg. John Smith" oninvalid="setCustomValidity('Please Enter Valid Name Eg. John Smith')"
+    onchange="try{setCustomValidity('')}catch(e){}" name="fullname" class="form-control col-md-7 col-xs-12" required>
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">
+                                    Email <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="email" placeholder="johnsmith@myemail.com" id="email" name="email" class="form-control col-md-7 col-xs-12" required>
+                                </div>
+                            </div>
+
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">
+                                    Contact Number <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="number" placeholder="Eg. +923312006123" pattern="([+][0-9]{12})|([0-9][12])|([0-9][11])" name="number" class="form-control col-md-7 col-xs-12" oninvalid="setCustomValidity('Please Enter Number Eg. +923312006340')"
+    onchange="try{setCustomValidity('')}catch(e){}" required>
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="website">
+                                    Organization Name <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="organizationname" name="organizationname" placeholder="ABC Corporaton" class="form-control col-md-7 col-xs-12" pattern="([a-zA-Z]+)|([a-zA-Z]+[ ][a-zA-Z]+)|([a-zA-Z]+[ ][a-zA-Z]+[ ][a-zA-Z]+)"  oninvalid="setCustomValidity('Please Enter Valid Name Eg. John Corporation')"
+    onchange="try{setCustomValidity('')}catch(e){}" required>
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">
+                                    Organization Address <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input id="organizationaddress" type="text" name="organizationaddress" placeholder="Eg. ABC Apartment Steet No 7 New York" pattern="([a-zA-Z][0-9][][a-ZA-Z][0-9])+" class="optional form-control col-md-7 col-xs-12" oninvalid="setCustomValidity('Please Enter Valid Address')"
+    onchange="try{setCustomValidity('')}catch(e){}" required>
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="">
+                                    Select Country of Warehouse <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select style="" class="form-control" id="orderCountries" name="orderCountries" required>
+             
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">
+                                    Select Associated Warehouse <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select style="" class="form-control" id="orderWarehouse" name="orderWarehouse" required>
+                     
+
+                                    </select>
+                                   </div>
+                                </div>
+
+                          
+
+                            <div class="ln_solid"></div>
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <button type="button" onclick="history.back()" id="goToBack" class="btn btn-primary">Cancel</button>
+                                    <input id="send" type="submit" class="btn btn-success" value="Proceed to Next Step" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

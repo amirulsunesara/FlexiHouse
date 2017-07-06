@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Consignment">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="warehouseId" Type="int" />
+    <Property Name="supplier" Type="varchar(max)" />
+    <Property Name="totalItems" Type="int" />
+    <Property Name="arrivalDate" Type="date" />
+    <Property Name="consignmentName" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Item">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="itemName" Type="varchar(max)" />
+    <Property Name="Manufacturer" Type="varchar(max)" />
+    <Property Name="Country" Type="varchar(max)" />
+    <Property Name="itemCode" Type="varchar(max)" />
+    <Property Name="Category" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Item_Consignment">
+    <Key>
+      <PropertyRef Name="itemId" />
+      <PropertyRef Name="consignmentId" />
+    </Key>
+    <Property Name="itemId" Type="int" Nullable="false" />
+    <Property Name="consignmentId" Type="int" Nullable="false" />
+    <Property Name="quantity" Type="int" />
+    <Property Name="expiry" Type="date" />
+  </EntityType>
+  <Association Name="FK_consignment">
+    <End Role="Consignment" Type="Self.Consignment" Multiplicity="1" />
+    <End Role="Item_Consignment" Type="Self.Item_Consignment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Consignment">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Item_Consignment">
+        <PropertyRef Name="consignmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_items">
+    <End Role="Item" Type="Self.Item" Multiplicity="1" />
+    <End Role="Item_Consignment" Type="Self.Item_Consignment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Item_Consignment">
+        <PropertyRef Name="itemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ModelsStoreContainer">
+    <EntitySet Name="Consignment" EntityType="Self.Consignment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Item_Consignment" EntityType="Self.Item_Consignment" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_consignment" Association="Self.FK_consignment">
+      <End Role="Consignment" EntitySet="Consignment" />
+      <End Role="Item_Consignment" EntitySet="Item_Consignment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_items" Association="Self.FK_items">
+      <End Role="Item" EntitySet="Item" />
+      <End Role="Item_Consignment" EntitySet="Item_Consignment" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

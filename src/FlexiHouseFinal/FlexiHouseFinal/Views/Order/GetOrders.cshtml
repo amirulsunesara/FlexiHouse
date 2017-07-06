@@ -1,0 +1,203 @@
+﻿@model List<FlexiHouseFinal.Models.Order>
+@using FlexiHouseFinal.Models
+@{
+    ViewBag.Title = "GetOrders";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+
+
+}
+
+<br /><br />
+<h3 style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif"> Orders </h3>
+<hr>
+
+
+@{  
+    bool isDispatchedExist = false;
+    bool isCanceledExist = false;
+    bool isSeenUnseenExist = false;
+    bool isCompletedExist = false;
+
+}
+@foreach (var od in Model)
+{
+    if (od.orderStatus == "Dispatched")
+    {
+        isDispatchedExist = true;
+    }
+    if (od.orderStatus == "Canceled")
+    {
+        isCanceledExist = true;
+
+    }
+    if (od.orderStatus == "Seen" || od.orderStatus == "Unseen")
+    {
+
+        isSeenUnseenExist = true;
+    }
+    if (od.orderStatus == "Completed")
+    {
+
+        isCompletedExist = true;
+    }
+
+
+}
+@if (isSeenUnseenExist)
+{
+<div class="row">
+
+    <div class="col-lg-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-book fa-fw"></i> Orders-Pending
+               
+
+
+            </div>
+
+            <div class="panel-body">
+
+                <div id="accordion">
+             
+                    @foreach (Order order in Model)
+                    {
+                        if (order.orderStatus == "Unseen" || order.orderStatus == "Seen")
+                        {
+                        @Html.Partial("Orders", order);
+                        }
+                    }
+
+                </div>
+
+
+
+
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+}
+@if (isDispatchedExist) { 
+<div class="row">
+
+    <div class="col-lg-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-book fa-fw"></i> Dispatched Orders
+
+
+
+            </div>
+
+            <div class="panel-body">
+
+                <div id="accordion2">
+
+                    @foreach (Order order in Model)
+                    {
+                        if (order.orderStatus == "Dispatched")
+                        {
+                            @Html.Partial("Orders", order);
+                        }
+                    }
+
+                </div>
+
+
+
+
+            </div>
+        </div>
+
+    </div>
+
+
+</div>}
+@if (isCompletedExist)
+{
+
+    <div class="row">
+
+        <div class="col-lg-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-book fa-fw"></i> Supplied Orders
+
+
+
+                </div>
+
+                <div class="panel-body">
+
+                    <div id="accordion3">
+
+                        @foreach (Order order in Model)
+                        {
+                            if (order.orderStatus == "Completed")
+                            {
+                                @Html.Partial("Orders", order);
+                            }
+                        }
+
+                    </div>
+
+
+
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+}
+
+
+
+
+
+@if (isCanceledExist)
+{
+<div class="row">
+
+    <div class="col-lg-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-book fa-fw"></i> Canceled Orders
+
+
+
+            </div>
+
+            <div class="panel-body">
+
+                <div id="accordion4">
+
+                    @foreach (Order order in Model)
+                    {
+                        if (order.orderStatus == "Canceled")
+                        {
+                            @Html.Partial("Orders", order);
+                        }
+                    }
+
+                </div>
+
+
+
+
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+}

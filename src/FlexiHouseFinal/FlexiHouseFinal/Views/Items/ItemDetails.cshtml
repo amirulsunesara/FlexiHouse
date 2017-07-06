@@ -1,0 +1,112 @@
+﻿@model FlexiHouseFinal.Models.Item
+
+@{
+    ViewBag.Title = "ItemDetails";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<form class="" method="post" enctype="multipart/form-data" action="/Items/SaveItem" onSubmit="alert('Successfully Save Changes');">
+    <div class="container">
+
+
+
+        <div class="imageupload panel panel-default" style="margin: 20px 0;">
+            <div class="panel-heading clearfix">
+                <h3 class="panel-title pull-left">Item Details</h3>
+
+            </div>
+            <div class="panel-body">
+                @{
+                    string dim = Model.itemDetail.dimensions;
+                    if (!dim.IsEmpty())
+                    {
+
+                        string[] arrDim = dim.Split('X');
+
+
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Item Dimensions(cm):</label>
+                    <div class="col-md-9 col-sm-9 col-xs-9">
+                        <input class="form-control-static" min="1" value="@arrDim[0]" name="length" placeholder="Length in cm" type="number" required> X <input name="width" class="form-control-static" value="@arrDim[1]" min="1" placeholder="Width in cm" type="number" required> X <input name="height" value="@arrDim[2]" class="form-control-static" min="1" placeholder="Height in cm" type="number" required><br><br>
+
+                    </div>
+                </div>
+                    }
+                    else
+                    {
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-3">Item Dimensions(cm):</label>
+                            <div class="col-md-9 col-sm-9 col-xs-9">
+                                <input class="form-control-static" min="1"  name="length" placeholder="Length in cm" type="number" required> X <input name="width" class="form-control-static"  min="1" placeholder="Width in cm" type="number" required> X <input name="height" class="form-control-static" min="1" placeholder="Height in cm" type="number" required><br><br>
+
+                            </div>
+                        </div>
+
+
+                    }
+                }
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Item Weight(kg):</label>
+                    <div class="col-md-9 col-sm-9 col-xs-9">
+                        <input class="form-control-static" value="@Model.itemDetail.weight" placeholder="Weight in Kg" min="1" type="number" name="weight" required>
+                        <input name="itemId" value="@Model.id" type="hidden">
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+    <div class="container">
+
+
+
+        <div class="imageupload panel panel-default" style="margin: 20px 0;">
+            <div class="panel-heading clearfix">
+                <h3 class="panel-title pull-left">Upload Image</h3>
+                <div class="btn-group pull-right">
+                   
+                 
+                </div>
+            </div>
+           @if (Model.itemDetail.picture != null)
+           { <div>      <img src="data:image/jpeg;base64,@Model.itemDetail.picture" style="max-width: 250px; max-height: 250px"></div>}
+            <div class="file-tab panel-body">
+                
+                <label class="btn btn-default btn-file">
+                    <span>Browse</span>
+               
+                    <input type="file" name="imgItem" accept='image/*'>
+               
+                 </label>
+               
+               
+                <button type="button" class="btn btn-default">Remove</button>
+            
+        
+            </div>
+            <div class="url-tab panel-body">
+                <div class="input-group">
+                    <input type="text" class="form-control hasclear" placeholder="Image URL">
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-default">Submit</button>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-default">Remove</button>
+
+              
+            </div>
+        </div>
+
+
+
+
+    </div>
+    <br>
+    <input id="send" type="submit" class="btn btn-success" value="Save Changes" />
+</form>

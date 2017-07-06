@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Consignment">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="warehouseId" Type="Int32" />
+    <Property Name="supplier" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="totalItems" Type="Int32" />
+    <Property Name="arrivalDate" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Item_Consignment" Relationship="Self.FK_consignment" FromRole="Consignment" ToRole="Item_Consignment" />
+    <Property Name="consignmentName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Item">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="itemName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Manufacturer" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Country" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="itemCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Category" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Item_Consignment" Relationship="Self.FK_items" FromRole="Item" ToRole="Item_Consignment" />
+  </EntityType>
+  <EntityType Name="Item_Consignment">
+    <Key>
+      <PropertyRef Name="itemId" />
+      <PropertyRef Name="consignmentId" />
+    </Key>
+    <Property Name="itemId" Type="Int32" Nullable="false" />
+    <Property Name="consignmentId" Type="Int32" Nullable="false" />
+    <Property Name="quantity" Type="Int32" />
+    <Property Name="expiry" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Consignment" Relationship="Self.FK_consignment" FromRole="Item_Consignment" ToRole="Consignment" />
+    <NavigationProperty Name="Item" Relationship="Self.FK_items" FromRole="Item_Consignment" ToRole="Item" />
+  </EntityType>
+  <Association Name="FK_consignment">
+    <End Role="Consignment" Type="Self.Consignment" Multiplicity="1" />
+    <End Role="Item_Consignment" Type="Self.Item_Consignment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Consignment">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Item_Consignment">
+        <PropertyRef Name="consignmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_items">
+    <End Role="Item" Type="Self.Item" Multiplicity="1" />
+    <End Role="Item_Consignment" Type="Self.Item_Consignment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Item_Consignment">
+        <PropertyRef Name="itemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ItemsConsigmentConStr" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Consignments" EntityType="Self.Consignment" />
+    <EntitySet Name="Items" EntityType="Self.Item" />
+    <EntitySet Name="Item_Consignment" EntityType="Self.Item_Consignment" />
+    <AssociationSet Name="FK_consignment" Association="Self.FK_consignment">
+      <End Role="Consignment" EntitySet="Consignments" />
+      <End Role="Item_Consignment" EntitySet="Item_Consignment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_items" Association="Self.FK_items">
+      <End Role="Item" EntitySet="Items" />
+      <End Role="Item_Consignment" EntitySet="Item_Consignment" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,52 @@
+﻿@model IEnumerable<FlexiHouseFinal.Models.Item_Consignment>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.expiry)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Consignment.supplier)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Item.itemName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.quantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.expiry)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Consignment.supplier)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Item.itemName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

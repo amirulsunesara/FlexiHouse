@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FlexiHouse</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="@Url.Content("~/Home_files/css.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Home_files/bootstrap.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Home_files/font-awesome.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Home_files/form-elements.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Home_files/style.css")">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Favicon and touch icons -->
+    <link rel="shortcut icon" href="http://azmind.com/demo/bootstrap-login-register-forms/form-3/assets/ico/favicon.png">
+
+
+</head>
+
+<body>
+
+    <!-- Top content -->
+    <div class="top-content">
+
+        <div class="inner-bg">
+            <button id="btnPlaceOrder" style="width:10%; float:right; margin-right:5cm;"  class="btn">Place Order</button>
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2 text">
+
+                    </div>
+                </div>
+
+                @RenderBody()
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+
+                <div class="col-sm-8 col-sm-offset-2">
+                    <div class="footer-border"></div>
+                    <p>2017. FlexiHouse</p>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+    <!-- Javascript -->
+
+    <script src="@Url.Content("~/Home_files/jquery-1.js")"></script>
+    <script src="@Url.Content("~/Home_files/bootstrap.js")"></script>
+    <script src="@Url.Content("~/Home_files/scripts.js")"></script>
+    <script src="@Url.Content("~/Scripts/PlaceOrder.js")"></script>
+   
+    @RenderSection("scripts", required: false)
+    <!--[if lt IE 10]>
+        <script src="assets/js/placeholder.js"></script>
+    <![endif]-->
+
+
+</body>
+</html>
+

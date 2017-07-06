@@ -1,0 +1,121 @@
+﻿@model FlexiHouseFinal.Models.UserAccount
+@{
+    ViewBag.Title = "EditWorker";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+<br /><br />
+<h3 style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif"> Edit Worker Account</h3>
+<hr>
+<div class="left_col" role="main">
+    <div class="">
+
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+
+                    <div class="x_content">
+                        <form class="form-horizontal form-label-left" method="post" enctype="multipart/form-data" action="/Account/SaveEditWorker">
+
+                            <br>
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
+                                    Full Name <span class="required">*</span><input type="hidden" id="userid" name="userid" value="@Model.UserID" />
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <label name="fullname" class="control-label"></label>
+                                    <input type="text" id="fullname" value="@Model.Name" pattern="([a-zA-Z]+[ ][a-zA-Z]+)|([a-zA-Z]+[ ][a-zA-Z]+[ ][a-zA-Z]+)" placeholder="Eg. John Smith" oninvalid="setCustomValidity('Please Enter Valid Name Eg. John Smith')"
+                                           onchange="try{setCustomValidity('')}catch(e){}" name="fullname" class="form-control col-md-7 col-xs-12" required>
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">
+                                    Email <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="email" placeholder="johnsmith@myemail.com" id="email" value="@Model.Email" name="email" class="form-control col-md-7 col-xs-12" required>
+                                </div>
+                            </div>
+
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">
+                                    Contact Number <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="number" placeholder="Eg. +923312006123" value="@Model.Contact" pattern="([+][0-9]{12})|([0-9][12])|([0-9][11])" name="number" class="form-control col-md-7 col-xs-12" oninvalid="setCustomValidity('Please Enter Number Eg. +923312006340')"
+                                           onchange="try{setCustomValidity('')}catch(e){}" required>
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="shelfs">
+                                    Select Shelfs <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select multiple="multiple" id="my-select" name="shelfs">
+                                        @{
+                                            FlexiHouseFinal.Models.WarehouseDBEntities wde = new FlexiHouseFinal.Models.WarehouseDBEntities();
+                                            BusinessLayer.WarehouseBusinessLayer wbl = new BusinessLayer.WarehouseBusinessLayer();
+                                            int warehouseIdd = wbl.getWarehouseId(Convert.ToInt32(Session["UserID"]));
+                                            List<FlexiHouseFinal.Models.Shelf> shelfs = wde.Shelves.Where(i => i.warehouse_id == warehouseIdd).ToList();
+                                            foreach (var shelf in shelfs)
+                                            {
+
+                                                string[] shelfsplit = shelf.shelfName.Split('s');
+                                                string sname = "s" + shelfsplit[1];
+
+                                                <option value='@sname'>@sname</option>
+
+
+                                            }
+                                        }
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="website">
+                                    User Name <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="username" name="username" value="@Model.UserName" placeholder="john.smith or john_smith or johnsmith" class="form-control col-md-7 col-xs-12" pattern="([a-zA-Z]+)|([a-zA-Z]+[.][a-zA-Z]+)|([a-zA-Z]+[_][a-zA-Z]+)" oninvalid="setCustomValidity('Please Enter Valid Username Eg. john.smith')"
+                                           onchange="try{setCustomValidity('')}catch(e){}" required>
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="website">
+                                    Password <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input id="password" name="password" value="@Model.Password" type="password" pattern=".{8,15}" class="form-control col-md-7 col-xs-12" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Must have at least 8 characters' : ''); if(this.checkValidity()) form.password_two.pattern = this.value;" placeholder="Password" required>
+
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="website">
+                                    Confirm Password <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input id="password_two" value="@Model.Password" name="password_two" class="form-control col-md-7 col-xs-12" type="password" pattern=".{8,15}" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');" placeholder="Verify Password" required>
+                                </div>
+                            </div>
+
+
+
+
+                            <div class="ln_solid"></div>
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-3">
+
+                                    <input id="send" type="submit" class="btn btn-success" value="Edit Account" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
