@@ -10,9 +10,9 @@ The goal of this system is to improve the efficiency and workflow of a warehouse
 
 Technologies used: C#, ASP.NET MVC 5 and Microsoft SQL Server 2014.
 
-# Setup Intstructions
+# Setup Instructions
 
-1. Run DDL.sql in your SQL Server 2014 Database enviroment.
+1. Run DDL.sql in your SQL Server 2014 Database environment.
 2. Replace the connection string under key "UserDBContext" in Web.config file in project root directory.
 3. Setup project in Visual Studio and run application.
 
